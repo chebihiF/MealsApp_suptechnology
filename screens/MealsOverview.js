@@ -2,13 +2,25 @@
 
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import MealItem from "../components/MealItem";
-import { MEALS } from "../data/dummy-data";
+import { CATEGORIES, MEALS } from "../data/dummy-data";
 
-const MealsOverview = ({ route }) => {
+const MealsOverview = ({ route, navigation }) => {
   const categoryId = route.params.categoryId;
 
   const displayedMeals = MEALS.filter((mealItem) => {
     return mealItem.categoryIds.indexOf(categoryId) >= 0;
+  });
+
+  console.log(categoryId);
+
+  const categoryTitle = CATEGORIES.find(
+    (category) => category.id === categoryId
+  ).title;
+
+  console.log(categoryTitle);
+
+  navigation.setOptions({
+    title: categoryTitle,
   });
 
   const rederMealItem = (itemData) => {
