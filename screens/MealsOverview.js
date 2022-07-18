@@ -1,6 +1,7 @@
 /** @format */
 
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import MealItem from "../components/MealItem";
 import { MEALS } from "../data/dummy-data";
 
 const MealsOverview = ({ route }) => {
@@ -11,11 +12,15 @@ const MealsOverview = ({ route }) => {
   });
 
   const rederMealItem = (itemData) => {
-    return (
-      <View>
-        <Text>{itemData.item.title}</Text>
-      </View>
-    );
+    const item = itemData.item;
+    const mealItemProps = {
+      title: item.title,
+      imageUrl: item.imageUrl,
+      affordability: item.affordability,
+      complexity: item.complexity,
+      duration: item.duration,
+    };
+    return <MealItem {...mealItemProps} />;
   };
 
   return (
