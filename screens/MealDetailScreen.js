@@ -1,29 +1,25 @@
-/** @format */
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-import { Image, StyleSheet, Text } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { View } from "react-native-web";
-import List from "../components/MealsDetail/List";
-import Subtitle from "../components/MealsDetail/Subtitle";
-import { MEALS } from "../data/dummy-data";
+import List from '../components/MealDetail/List';
+import Subtitle from '../components/MealDetail/Subtitle';
+import MealDetails from '../components/MealDetails';
+import { MEALS } from '../data/dummy-data';
 
-const MealDetailScreen = ({ route }) => {
+function MealDetailScreen({ route }) {
   const mealId = route.params.mealId;
+
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   return (
     <ScrollView style={styles.rootContainer}>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
       <Text style={styles.title}>{selectedMeal.title}</Text>
-      <View style={styles.details}>
-        <Text style={styles.detailItem}>{selectedMeal.duration}m</Text>
-        <Text style={styles.detailItem}>
-          {selectedMeal.complexity.toUpperCase()}
-        </Text>
-        <Text style={styles.detailItem}>
-          {selectedMeal.affordability.toUpperCase()}
-        </Text>
-      </View>
+      <MealDetails
+        duration={selectedMeal.duration}
+        complexity={selectedMeal.complexity}
+        affordability={selectedMeal.affordability}
+        textStyle={styles.detailText}
+      />
       <View style={styles.listOuterContainer}>
         <View style={styles.listContainer}>
           <Subtitle>Ingredients</Subtitle>
@@ -34,38 +30,32 @@ const MealDetailScreen = ({ route }) => {
       </View>
     </ScrollView>
   );
-};
+}
 
 export default MealDetailScreen;
+
 const styles = StyleSheet.create({
   rootContainer: {
-    marginBottom: 32,
+    marginBottom: 32
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: 350,
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 24,
     margin: 8,
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
   },
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 8,
-  },
-  detailItem: {
-    marginHorizontal: 4,
-    fontSize: 12,
+  detailText: {
+    color: 'white',
   },
   listOuterContainer: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   listContainer: {
-    width: "80%",
+    width: '80%',
   },
 });
